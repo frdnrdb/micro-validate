@@ -64,11 +64,14 @@ const validate = require('micro-validate')
 
 const numberValidator = p => Number.isInteger(p)
 const passportValidator = p => p.length === 8
+const notAllowed = () => false;
 
 module.exports = (req, res) => {
-  const { zip_code, passport_id, message, name, from, to } = parse(req.url, true).query
+  const { zip_code, passport_id, message, age, name, from, to } = parse(req.url, true).query
   validate({ zip_code }, numberValidator, 'The parameter {param} must be a number')
   validate({ passport_id }, passportValidator, 'The parameter {param} must be 8 characters-length')
+  validate({ age }, numberValidator, 'The parameter {param} must be a number', false)
+  validate({ _id }, notAllowed, 'The parameter {param} is protected', false)
   validate({ message, name, from, to })
   // Use all the parameters!
   return 'all ok!'
