@@ -67,7 +67,7 @@ const passportValidator = p => p.length === 8
 const notAllowed = () => false;
 
 module.exports = (req, res) => {
-  const { zip_code, passport_id, message, age, name, from, to } = parse(req.url, true).query
+  const { zip_code, passport_id, message, name, from, to, age, _id } = parse(req.url, true).query
   validate({ zip_code }, numberValidator, 'The parameter {param} must be a number')
   validate({ passport_id }, passportValidator, 'The parameter {param} must be 8 characters-length')
   validate({ age }, numberValidator, 'The parameter {param} must be a number', false)
